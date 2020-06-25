@@ -11,13 +11,37 @@ namespace DataStructuresTest
     {
         static void Main(string[] args)
         {
-            var buffer = new CircularBuffer(capacity: 3);
+            var buffer = new CircularBuffer<double>();
 
-            while(true)
+            ProcessInput(buffer);
+            ProcessBuffer(buffer);
+
+            Console.ReadLine();
+        }
+
+        private static void ProcessBuffer(CircularBuffer<double> buffer)
+        {
+            var sum = 0.0;
+            Console.WriteLine("Buffer: ");
+
+            while (!buffer.IsEmpty)
             {
+                sum += buffer.Read();
+
+                //Console.WriteLine("\t" + buffer.Read());
+            }
+
+            Console.WriteLine(sum);
+        }
+
+        private static void ProcessInput(CircularBuffer<double> buffer)
+        {
+            while (true)
+            {
+                var value = 0.0;
                 var input = Console.ReadLine();
 
-                if (double.TryParse(input, out double value))
+                if (double.TryParse(input, out value))
                 {
                     buffer.Write(value);
                     continue;
@@ -25,15 +49,6 @@ namespace DataStructuresTest
 
                 break;
             }
-
-            Console.WriteLine("Buffer: ");
-
-            while(!buffer.IsEmpty)
-            {
-                Console.WriteLine("\t" + buffer.Read());
-            }
-
-            Console.ReadLine();
         }
     }
 }
