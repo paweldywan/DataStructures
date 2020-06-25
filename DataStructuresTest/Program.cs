@@ -15,11 +15,9 @@ namespace DataStructuresTest
 
             while(true)
             {
-                var parsed = false;
-                var value = 0.0;
                 var input = Console.ReadLine();
 
-                if(double.TryParse(input, out value))
+                if (double.TryParse(input, out double value))
                 {
                     buffer.Write(value);
                     continue;
