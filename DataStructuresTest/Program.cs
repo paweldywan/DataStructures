@@ -11,15 +11,21 @@ namespace DataStructuresTest
     {
         static void Main(string[] args)
         {
-            var buffer = new CircularBuffer<double>();
+            var buffer = new Buffer<double>();
 
             ProcessInput(buffer);
+
+            foreach (var item in buffer)
+            {
+                Console.WriteLine(item);
+            }
+
             ProcessBuffer(buffer);
 
             Console.ReadLine();
         }
 
-        private static void ProcessBuffer(CircularBuffer<double> buffer)
+        private static void ProcessBuffer(IBuffer<double> buffer)
         {
             var sum = 0.0;
             Console.WriteLine("Buffer: ");
@@ -34,7 +40,7 @@ namespace DataStructuresTest
             Console.WriteLine(sum);
         }
 
-        private static void ProcessInput(CircularBuffer<double> buffer)
+        private static void ProcessInput(IBuffer<double> buffer)
         {
             while (true)
             {
