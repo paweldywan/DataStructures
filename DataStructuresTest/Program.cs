@@ -9,16 +9,18 @@ namespace DataStructuresTest
 {
     class Program
     {
+        static void ConsoleWrite(double data)
+        {
+            Console.WriteLine(data);
+        }
+
         static void Main(string[] args)
         {
             var buffer = new Buffer<double>();
 
             ProcessInput(buffer);
 
-            foreach (var item in buffer)
-            {
-                Console.WriteLine(item);
-            }
+            ProcessOutput(buffer);
 
             ProcessBuffer(buffer);
 
@@ -54,6 +56,18 @@ namespace DataStructuresTest
                 }
 
                 break;
+            }
+        }
+
+        private static void ProcessOutput(Buffer<double> buffer)
+        {
+            buffer.Dump(ConsoleWrite);
+
+            var asInts = buffer.AsEnumerableOf<double, int>();
+
+            foreach (var item in asInts)
+            {
+                Console.WriteLine(item);
             }
         }
     }
