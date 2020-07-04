@@ -47,6 +47,7 @@
     <Compile Include="Buffer.cs" />
     <Compile Include="BufferExtensions.cs" />
     <Compile Include="CircularBuffer.cs" />
+    <Compile Include="CircularBuffer2.cs" />
     <Compile Include="IBuffer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

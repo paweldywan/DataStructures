@@ -9,22 +9,33 @@ namespace DataStructuresTest
 {
     class Program
     {
-        static void ConsoleWrite(double data)
-        {
-            Console.WriteLine(data);
-        }
-
         static void Main(string[] args)
         {
-            var buffer = new Buffer<double>();
+            var buffer = new CircularBuffer<double>(capacity: 3);
+            buffer.ItemDiscarded += ItemDiscarded;
 
             ProcessInput(buffer);
 
-            ProcessOutput(buffer);
+            buffer.Dump(d => Console.WriteLine(d));
 
             ProcessBuffer(buffer);
 
             Console.ReadLine();
+        }
+
+        private static void ItemDiscarded(object sender, ItemDiscardedEventArgs<double> e)
+        {
+            Console.WriteLine("Buffer full. Discarding {0} New item is {1}", e.ItemDiscarded, e.NewItem);
+        }
+
+        private static void TestMap(CircularBuffer<double> buffer)
+        {
+            var asDates = buffer.Map(d => new DateTime(2010, 1, 1).AddDays(d));
+
+            foreach (var date in asDates)
+            {
+                Console.WriteLine(date);
+            }
         }
 
         private static void ProcessBuffer(IBuffer<double> buffer)
@@ -59,16 +70,14 @@ namespace DataStructuresTest
             }
         }
 
-        private static void ProcessOutput(Buffer<double> buffer)
+        private static void TestGenericDelegatesAndLocalFunction()
         {
-            buffer.Dump(ConsoleWrite);
+            Action<bool> print = d => Console.WriteLine(d);
+            Func<double, double> square = d => d * d;
+            double add(double x, double y) => x + y;
+            Predicate<double> isLessThanTen = d => d < 10;
 
-            var asInts = buffer.AsEnumerableOf<double, int>();
-
-            foreach (var item in asInts)
-            {
-                Console.WriteLine(item);
-            }
+            print(isLessThanTen(square(add(3, 5))));            
         }
     }
 }
