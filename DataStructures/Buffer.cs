@@ -20,9 +20,6 @@ namespace DataStructures
 
         public IEnumerator<T> GetEnumerator() => queue.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
