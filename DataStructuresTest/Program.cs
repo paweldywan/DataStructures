@@ -41,13 +41,12 @@ namespace DataStructuresTest
         private static void ProcessBuffer(IBuffer<double> buffer)
         {
             var sum = 0.0;
+
             Console.WriteLine("Buffer: ");
 
             while (!buffer.IsEmpty)
             {
                 sum += buffer.Read();
-
-                //Console.WriteLine("\t" + buffer.Read());
             }
 
             Console.WriteLine(sum);
@@ -57,10 +56,9 @@ namespace DataStructuresTest
         {
             while (true)
             {
-                var value = 0.0;
                 var input = Console.ReadLine();
 
-                if (double.TryParse(input, out value))
+                if (double.TryParse(input, out double value))
                 {
                     buffer.Write(value);
                     continue;

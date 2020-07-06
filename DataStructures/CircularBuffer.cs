@@ -9,20 +9,21 @@ namespace DataStructures
 {
     public class CircularBuffer<T> : Buffer<T>
     {
-        int _capacity;
+        private readonly int capacity;
 
         public CircularBuffer(int capacity = 10)
         {
-            _capacity = capacity;
+            this.capacity = capacity;
         }
 
         public override void Write(T value)
         {
             base.Write(value);
 
-            if(_queue.Count > _capacity)
+            if (queue.Count > capacity)
             {
-                var discard = _queue.Dequeue();
+                var discard = queue.Dequeue();
+
                 OnItemDiscarded(discard, value);
             }
         }
@@ -32,13 +33,14 @@ namespace DataStructures
             if (ItemDiscarded != null)
             {
                 var args = new ItemDiscardedEventArgs<T>(discard, value);
+
                 ItemDiscarded(this, args);
             }
         }
 
         public event EventHandler<ItemDiscardedEventArgs<T>> ItemDiscarded;
 
-        public bool IsFull => _queue.Count == _capacity;
+        public bool IsFull => queue.Count == capacity;
     }
 
     public class ItemDiscardedEventArgs<T> : EventArgs
@@ -49,7 +51,7 @@ namespace DataStructures
             NewItem = newItem;
         }
 
-        public T ItemDiscarded { get; set; }
-        public T NewItem { get; set; }
+        public T ItemDiscarded { get; private set; }
+        public T NewItem { get; private set; }
     }
 }

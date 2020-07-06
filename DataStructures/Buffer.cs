@@ -10,30 +10,15 @@ namespace DataStructures
 {
     public class Buffer<T> : IBuffer<T>
     {
-        protected Queue<T> _queue = new Queue<T>();
+        protected Queue<T> queue = new Queue<T>();
 
-        public virtual bool IsEmpty
-        {
-            get { return _queue.Count == 0; }
-        }
+        public virtual bool IsEmpty => queue.Count == 0;
 
-        public virtual void Write(T value)
-        {
-            _queue.Enqueue(value);
-        }
+        public virtual void Write(T value) => queue.Enqueue(value);
 
-        public virtual T Read()
-        {
-            return _queue.Dequeue();
-        }
+        public virtual T Read() => queue.Dequeue();
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            foreach (var item in _queue)
-            {
-                yield return item;
-            }
-        }
+        public IEnumerator<T> GetEnumerator() => queue.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()
         {
