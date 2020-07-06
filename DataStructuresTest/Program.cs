@@ -11,6 +11,8 @@ namespace DataStructuresTest
     {
         static void Main(string[] args)
         {
+            _ = args;
+
             var buffer = new CircularBuffer<double>(capacity: 3);
             buffer.ItemDiscarded += ItemDiscarded;
 
@@ -19,6 +21,10 @@ namespace DataStructuresTest
             buffer.Dump(d => Console.WriteLine(d));
 
             ProcessBuffer(buffer);
+
+            TestMap(buffer);
+
+            TestLocalFunction();
 
             Console.ReadLine();
         }
@@ -61,6 +67,7 @@ namespace DataStructuresTest
                 if (double.TryParse(input, out double value))
                 {
                     buffer.Write(value);
+
                     continue;
                 }
 
@@ -68,14 +75,18 @@ namespace DataStructuresTest
             }
         }
 
-        private static void TestGenericDelegatesAndLocalFunction()
+        private static void TestLocalFunction()
         {
-            Action<bool> print = d => Console.WriteLine(d);
-            Func<double, double> square = d => d * d;
-            double add(double x, double y) => x + y;
-            Predicate<double> isLessThanTen = d => d < 10;
+            void print(bool d) => Console.WriteLine(d);
 
-            print(isLessThanTen(square(add(3, 5))));            
+            double square(double d) => d * d;
+
+            double add(double x, double y) => x + y;
+
+            bool isLessThanTen(double d) => d < 10;
+
+
+            print(isLessThanTen(square(add(3, 5))));
         }
     }
 }
