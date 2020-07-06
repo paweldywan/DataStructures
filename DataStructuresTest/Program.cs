@@ -18,13 +18,22 @@ namespace DataStructuresTest
 
             ProcessInput(buffer);
 
+            WriteSeparator();
+
             buffer.Dump(d => Console.WriteLine(d));
 
-            ProcessBuffer(buffer);
+            WriteSeparator();
 
             TestMap(buffer);
 
+            WriteSeparator();
+
+            ProcessBuffer(buffer);
+
+            WriteSeparator();
+
             TestLocalFunction();
+
 
             Console.ReadLine();
         }
@@ -32,6 +41,28 @@ namespace DataStructuresTest
         private static void ItemDiscarded(object sender, ItemDiscardedEventArgs<double> e)
         {
             Console.WriteLine("Buffer full. Discarding {0} New item is {1}", e.ItemDiscarded, e.NewItem);
+        }
+
+        private static void ProcessInput(IBuffer<double> buffer)
+        {
+            while (true)
+            {
+                var input = Console.ReadLine();
+
+                if (double.TryParse(input, out double value))
+                {
+                    buffer.Write(value);
+
+                    continue;
+                }
+
+                break;
+            }
+        }
+
+        private static void WriteSeparator()
+        {
+            Console.WriteLine("---");
         }
 
         private static void TestMap(CircularBuffer<double> buffer)
@@ -56,23 +87,6 @@ namespace DataStructuresTest
             }
 
             Console.WriteLine(sum);
-        }
-
-        private static void ProcessInput(IBuffer<double> buffer)
-        {
-            while (true)
-            {
-                var input = Console.ReadLine();
-
-                if (double.TryParse(input, out double value))
-                {
-                    buffer.Write(value);
-
-                    continue;
-                }
-
-                break;
-            }
         }
 
         private static void TestLocalFunction()
